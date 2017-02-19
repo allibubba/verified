@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead
+j This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218220139) do
+ActiveRecord::Schema.define(version: 20170218230419) do
 
   create_table "users", force: :cascade do |t|
     t.string   "firstName"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 20170218220139) do
     t.string   "country"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "verifications", force: :cascade do |t|
+    t.string   "verifiable_type"
+    t.integer  "verifiable_id"
+    t.string   "candidate_id"
+    t.string   "order_id"
+    t.string   "status"
+    t.string   "result"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["verifiable_type", "verifiable_id"], name: "index_verifications_on_verifiable_type_and_verifiable_id"
   end
 
 end
