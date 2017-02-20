@@ -8,7 +8,7 @@ module Verified
   module Generators
     class InstallGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
-      extend Verifed::Generators::Migration
+      extend Verified::Generators::Migration
 
       source_root File.expand_path("../templates", __FILE__)
 

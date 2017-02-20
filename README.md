@@ -1,5 +1,5 @@
 # Verified
-Short description and motivation.
+Provide a clean interface for working with background check service
 
 ## Usage
 How to use my plugin.
@@ -21,8 +21,11 @@ Or install it yourself as:
 $ gem install verified
 ```
 
-## Contributing
-Contribution directions go here.
+Create verification initializer, and migrations
+``` baseh
+$ rails generate verified:install
+```
+
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
