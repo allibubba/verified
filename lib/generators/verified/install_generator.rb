@@ -19,7 +19,7 @@ module Verified
       end
       desc "Create migration for verification model"
       def copy_migration
-        migration_template 'install.rb', 'db/migrate/CreateVerifications.rb'
+        migration_template 'install.rb', 'db/migrate/create_verifications.rb'
       end
 
     end

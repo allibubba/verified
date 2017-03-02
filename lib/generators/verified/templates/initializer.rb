@@ -1,5 +1,6 @@
 Verified.setup do |config|
-  config.base_url='some url'
-  config.client_id='some value'
-  config.client_secret='some value'
+  config.base_url='https://api.accuratebackground.com/v3/'
+  config.client_id='your-id'
+  config.client_secret='your-secret'
+  config.package_type='some value'
 end

@@ -16,36 +16,89 @@ module Verified
 
     module LocalInstanceMethods
 
-      def candidate
-        self.verifications.create
-        @uri = URI.parse("#{@url_base}candidate")
+
+
+      def order
+        # puts "==============================="
+        # puts self.verifications
+        # puts self.verifications.order(:created_at).last.try(:candidate_id)
+        # puts "==============================="
+        # return false
+        create_candidate()
+        @uri = URI.parse("#{Verified.base_url}order")
         @request = Net::HTTP::Post.new(@uri)
-        @request.basic_auth(client_id, client_secret)
+        @request.basic_auth(Verified.client_id, Verified.client_secret)
         @req_options = { use_ssl: @uri.scheme == "https" }
-        @request.set_form_data( validatable_attributes )
+        @request.set_form_data(
+          "packageType" => Verified.package_type,
+          "candidateId" => self.verifications.order(:created_at).last.try(:candidate_id),
+          "workflow" => "EXPRESS",
+          "jobLocation.city" => "Portland",
+          "jobLocation.region" => "OR",
+          "jobLocation.country" => "US"
+        )
         make_request
       end
 
 
+
       private
-      def validatable_attributes
-        {
-          "firstName" => self.firstname,
-          "lastName" => self.lastname,
-          "phone" => self.phone,
-          "email" => self.email,
-          "dateOfBirth" => self.dateofbirth,
-          "ssn" => self.ssn,
-          "address" => self.address,
-          "city" => self.city,
-          "region" => self.region,
-          "postalCode" => self.postalcode,
-          "country" => self.country
-        }
+
+      def create_candidate
+        # self.verifications.create
+        @uri = URI.parse("#{Verified.base_url}candidate")
+        @request = Net::HTTP::Post.new(@uri)
+        @request.basic_auth(Verified.client_id, Verified.client_secret)
+        @req_options = { use_ssl: @uri.scheme == "https" }
+        @request.set_form_data( validatable_attributes )
+        puts "attributes ++++++++++++++++++++++++++++++++++"
+        puts validatable_attributes
+        puts "+++++++++++++++++++++++++++++++++++++++++++++"
+        make_request
       end
 
+
+      def validatable_attributes
+        {"firstName" => "bugs" ,
+         "lastName" => "bunny",
+         "phone" => "2063339999",
+         "email" => "bugs@bunny.com",
+         "dateOfBirth" => "1940-06-06",
+         "ssn" => "123-55-6666",
+         "address" => "4000 Warner Boulevard",
+         "city" => "Burbank",
+         "region" => "CA",
+         "country" => "US"}
+      end
+      # def validatable_attributes
+      #   {
+      #     "firstName" => self.firstname,
+      #     "lastName" => self.lastname,
+      #     "phone" => self.phone,
+      #     "email" => self.email,
+      #     "dateOfBirth" => self.dateofbirth,
+      #     "ssn" => self.ssn,
+      #     "address" => self.address,
+      #     "city" => self.city,
+      #     "region" => self.region,
+      #     "postalCode" => self.postalcode,
+      #     "country" => self.country
+      #   }
+      # end
+
       def make_request
-        Net::HTTP.start(@uri.hostname, @uri.port, @req_options) { |http| http.request(@request) }
+        puts "request params: -------------"
+        puts self
+        puts @uri
+        puts @req_options
+        puts @request
+        puts "request params: -------------"
+
+        n = Net::HTTP.start(@uri.hostname, @uri.port, @req_options) { |http| http.request(@request) }
+        puts "Net::HTTP ====================="
+        puts n.inspect
+        puts "==============================="
+        return n
       end
 
     end
