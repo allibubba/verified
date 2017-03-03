@@ -12,3 +12,8 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+group :development do
+  gem "bundler"
+  gem "rake"
+  gem "appraisal"
+end
