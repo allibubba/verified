@@ -4,11 +4,9 @@ rvm:
   - 2.3.0
   - 2.3.1
   - ruby-head
-script: 'bundle exec rake'
+script: bundle exec rspec
 env:
   - DB=SQLITE
-  - DB=POSTGRES
-  - DB=MYSQL
 gemfile:
   - gemfiles/rails40.gemfile
   - gemfiles/rails41.gemfile
