@@ -4,6 +4,7 @@ rvm:
   - 2.3.0
   - 2.3.1
   - ruby-head
+script: 'bundle exec rake'
 env:
   - DB=SQLITE
   - DB=POSTGRES
@@ -19,5 +20,5 @@ matrix:
   fast_finish: true
 branches:
   only:
-  - master
+  - refactor
 sudo: false
